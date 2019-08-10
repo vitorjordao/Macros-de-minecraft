@@ -1,0 +1,43 @@
+$${IF(auto);LOG("&3[%PLAYER%] &bAuto-Morte &4[OFF]");
+SPRINT;
+UNSET(auto);
+STOP();
+ELSE;
+LOG("&3[%PLAYER%] &bAuto-Morte &2[ON]");
+SPRINT;
+LOG("&3[%PLAYER%] &3Para desligar pressione %KEYNAME%");
+SET(auto);
+DO;
+if(HEALTH<=4);
+DISCONNECT;}$$
+$${
+LOG("&3[%PLAYER%] &bAuto-Morte &4[OFF]");
+UNSET(auto);
+STOP();
+endif;
+else;
+key(attack);
+wait(1t);
+IF(KEY_F);
+key(use);
+wait(1t);
+ENDIF;
+}$$
+$${
+ifmatches(%GUI%,Chest);
+keydown(forward);
+sprint;
+else;
+endif;
+ifmatches(%GUI%,Inventory);
+keydown(forward);
+sprint;
+else;
+endif;
+ifmatches(%GUI%,Chat);
+keydown(forward);
+sprint;
+else;
+endif;
+LOOP;
+}$$
