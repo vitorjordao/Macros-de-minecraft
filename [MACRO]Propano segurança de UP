@@ -1,0 +1,17 @@
+$${
+if(acro);
+log(&bPropano segurança de UP &c[OFF]);
+log(&4Feita por &cMortasius);
+unset(acro);
+stop();
+else;
+log(&bPropano segurança de UP &a[ON]);
+log(&4Feita por &cMortasius);
+set(acro);
+PROMPT(&home,$$?,"Nome da sua home:");
+PROMPT(&tempo,$$?,"Tempo que ira dar home em segundos:");
+do;
+wait(%&tempo%);
+echo("/home %&home%");
+loop;
+}$$
