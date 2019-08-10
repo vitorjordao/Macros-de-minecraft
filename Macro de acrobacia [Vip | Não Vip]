@@ -1,0 +1,20 @@
+$${
+if(acro);
+log(&bUpar Acrobacia &c[OFF]);
+log(&4Feita por &cMortasius);
+unset(acro);
+KEYUP(sneak);
+stop();
+else;
+log(&bUpar Acrobacia &a[ON]);
+log(&4Feita por &cMortasius);
+set(acro);
+}$$
+/home
+$${
+DO;
+KEYDOWN(sneak);
+RESPAWN;
+LOOP;
+stop;
+}$$
