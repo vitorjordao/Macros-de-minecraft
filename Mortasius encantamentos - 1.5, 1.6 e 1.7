@@ -1,0 +1,203 @@
+$${
+if(acro);
+log(&bMortasius encantamentos 1.5 1.6 1.7 &c[OFF]);
+unset(acro);
+KEYUP(sneak);
+stop();
+else;
+log(&bMortasius encantamentos 1.5 1.6 1.7 &a[ON]);
+set(acro);
+
+#qtd = LEVEL
+
+if(%#qtd%<=29);
+log(&4XP insoficiente (Minimo 30));
+unset(acro);
+stop;
+endif;
+
+
+
+
+#ids=0;
+#iditem=0;
+log( );
+log( );
+log( );
+log( );
+log( );
+log( );
+log( );
+log( );
+log( );
+log( );
+log( );
+log( );
+log(________________________);
+log(&9Espada de dima &2  1);
+log(&9Elmo de dima &2      2);
+log(&9Peitoral de dima &2  3);
+log(&9Calça de dima &2     4);
+log(&9Bota de dima &2      5);
+log(________________________);
+log( );
+log( );
+prompt(#iditem,$$?,Que item deseja encantar?);
+log( );
+log( );
+log( );
+log( );
+log( );
+log( );
+log( );
+log( );
+log( );
+log( );
+log( );
+log( );
+log(________________________);
+log(&91.5.x e 1.6.x  =  &21);
+log(&91.7.x          =  &22);
+log(________________________);
+log( );
+log( );
+prompt(#versao,$$?,Qual sua versao do seu minecraft?);
+
+if(%#versao%<=0);
+log(&4Erro ao detectar a versao);
+unset(acro);
+stop;
+elseif(%#versao%>=3);
+log(&4Erro ao detectar a versao);
+unset(acro);
+stop;
+elseif(%#versao%=1);
+
+
+if(%#iditem%=1);
+&ids=276
+&nomeitem=as espadas
+elseif(%#iditem%=2);
+&ids=310
+&nomeitem=os elmos
+elseif(%#iditem%=3);
+&ids=311
+&nomeitem=os peitorais
+elseif(%#iditem%=4);
+&ids=312
+&nomeitem=as calças
+elseif(%#iditem%=5);
+&ids=313
+&nomeitem=as botas
+elseif(%#iditem%=0);
+log(&4Erro para saber o item);
+unset(acro);
+stop;
+elseif(%#iditem%>=6);
+log(&4Erro para saber o item);
+unset(acro);
+stop;
+endif;
+
+
+elseif(#versao=2);
+
+
+if(%#iditem%=1);
+&ids=diamond_sword
+&nomeitem=as espadas
+elseif(%#iditem%=2);
+&ids=diamond_helmet
+&nomeitem=os elmos
+elseif(%#iditem%=3);
+&ids=diamond_chestplate
+&nomeitem=os peitorais
+elseif(%#iditem%=4);
+&ids=diamond_leggings
+&nomeitem=as calças
+elseif(%#iditem%=5);
+&ids=diamond_boots
+&nomeitem=as botas
+elseif(%#iditem%=0);
+log(&4Erro para saber o item);
+unset(acro);
+stop;
+elseif(%#iditem%>=6);
+log(&4Erro para saber o item);
+unset(acro);
+stop;
+endif;
+
+endif;
+log( );
+log( );
+log( );
+log( );
+log( );
+log( );
+log( );
+log( );
+log( );
+log( );
+log( );
+log( );
+log(________________________);
+log(&9Minimo  &21);
+log(&9Máximo &218);
+log(________________________);
+log( );
+log( );
+prompt(#itensnumero,$$?,Quant%&nomeitem% você tem?);
+
+if(%itens%>=19);
+log(&4O limite de itens é 18);
+unset(acro);
+stop;
+endif;
+#n=%#qtd%/30;
+#n1 = 0
+if(%#n%>=%#itensnumero%);
+#n1 = %#itensnumero%;
+elseif(%#itensnumero%>=%#n%);
+#n1 = %#n%;
+endif;
+
+
+#s = 1
+log(Da para encantar %#n1% itens!);
+key(use);
+wait(3);
+do(%#n1%);
+
+
+if(%#s% = 19);
+log(itens encantados);
+unset(acro);
+stop;
+endif;
+
+for(#nslot,50,50);
+
+getslot(%&ids%,#nslot,%#s%);
+
+slotclick(%#nslot%,l,true);
+wait(50ms);
+next;
+
+wait(2);
+
+for(#nslot,50,50);
+
+getslot(%&ids%,#nslot,0);
+
+slotclick(%#nslot%,l,true);
+wait(50ms);
+inc(#s);
+next;
+
+loop;
+gui;
+log(itens encantados);
+unset(acro);
+stop;
+}$$
