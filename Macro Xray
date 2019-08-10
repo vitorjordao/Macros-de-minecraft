@@ -1,0 +1,19 @@
+$${
+toggle(xray);
+if(xray)
+log(&2Xray &c[OFF]);
+log(&4Feita por &cMortasius);
+log(&5macromine.directorioforuns.com);
+gamma(1);
+TEXTUREPACK();
+stop();
+else;
+log(&2Xray &a[ON]);
+log(&4Feita por &cMortasius);
+log(&5macromine.directorioforuns.com);
+gamma(200);
+TEXTUREPACK(xray);
+endif(xray)
+
+
+}$$
