@@ -1,0 +1,552 @@
+$${
+toggle(potz);
+if(potz);
+log(&d» &6Mortasius pots em massa V1.2 &c[OFF]);
+stop();
+else;
+log(&d» &6Mortasius pots em massa V1.2 &a[ON]);
+
+#bau=1;
+ 
+
+prompt(#qtd,$$?,Quantidade de baus unicos de pot que deseja.(maximo de 162));
+if(%#qtd%>162);
+log(&d» &6Macro nao suporta tudo isso de baus);
+stop();
+elseif(%#qtd%<1);
+log(&d» &6Quantidade anormal de baus!);
+stop();
+endif;
+prompt(#tipo,$$?,Qual pot deseja fazer?(1=Regeneracao / 2=Fogo / 3=Velocidade / 4=Força / =5=Vida ));
+if(%#tipo%>5);
+log(&d» &6Nao existe esse tipo de pot);
+stop();
+elseif(%#tipo%<1);
+log(&d» &6Nao existe esse tipo de pot);
+stop();
+endif;
+prompt(#tipo2,$$?,Deseja aumentar o tempo (1) ou a potência (2)?);
+if(%#tipo2%>2);
+log(&d» &6Tipo de "buff" na POT invalido! opcoes existentes->1/2);
+stop();
+elseif(%#tipo2%<1);
+log(&d» &6Tipo de "buff" na POT invalido! opcoes existentes->1/2);
+stop();
+endif;
+prompt(#lag,$$?,Escolha o delay (Se o servidor estiver pouco lag -> 2  / Muito lag -> 4 / Lag das 2h -> 6 ));
+if(%#lag%<2);
+#lag = 2
+log(&d» &6Lag esta muito baixo! Ele foi redefinido para 2);
+elseif(%#lag%>7);
+log(&d» &6Seu servidor esta lagado D+ e pode dar problema... ligue o macro quando estiver menos lagado!);
+stop;
+endif
+prompt(#naovip,$$?,Se for vip coloque 0 | Se nao for vip coloque 1);
+if(%#naovip%=1);
+#naovip = 5
+elseif(%#naovip%<0);
+log(&d» &6erro para saber se e ou nao vip);
+stop;
+elseif(%#naovip%>1);
+log(&d» &6erro para saber se e ou nao vip);
+stop;
+endif;
+
+#lag2 = %#lag% + %#naovip%
+#lag3 = 0
+#lag4 = 0
+#lag5 = 0
+
+if(%#lag%<4);
+#lag3 = 303
+#lag4 = 501
+#lag5 = 35
+elseif(%#lag%>=4)
+#lag3=#lag*100
+#lag3=#lag3+303
+#lag4=#lag*500
+#lag4=#lag4+501
+#lag5=#lag*2
+#lag5=#lag5+35
+endif;
+
+ 
+do(%#qtd%);
+
+
+#baupot=1;
+
+do;
+wait(1000ms);
+}$$
+$${
+if(%#baupot%=1);
+}$$
+/home trapbau
+$${
+wait(%#lag2%);
+look(SOUTH);
+wait(2t);
+look(-35,-15);
+wait(%#lag%);
+endif;
+}$$
+
+$${
+if(%#baupot%=2);
+}$$
+/home trapbau
+$${
+wait(%#lag2%);
+look(SOUTH);
+wait(2t);
+look(-35,-0);
+wait(%#lag%);
+endif;
+}$$
+
+$${
+if(%#baupot%=3);
+}$$
+/home trapbau
+$${
+wait(%#lag2%);
+look(SOUTH);
+wait(2t);
+look(-35,+20);
+wait(%#lag%);
+endif;
+}$$
+
+$${
+key(use);
+wait(%#lag%);
+for(#i,0,0);
+getslot(glass_bottle,#frasco);
+slotclick(%#frasco%,l,true);
+wait(30ms);
+next;
+wait(502ms);
+getslotitem(89,#id,#stack2);
+wait(502ms);
+if(%#stack2%=0);
+inc(#baupot);
+endif;
+if(%#baupot%=4);
+log(&4!!ACABOU TODOS OS FRASCOS!!);
+stop;
+gui();
+else;
+gui();
+endif;
+until(%#stack2%!=0);
+
+
+
+
+}$$/home fabricadepot$${
+log(&6Enchendo os frascos com agua);
+slot(9);
+wait(%#lag2%);
+look(270,90)
+do(%#lag5%);
+key(use);
+wait(250ms);
+loop;
+wait(1);
+log(&6Info fazer a pocao);
+}$$/home fabricadepot$${
+wait(%#lag2%);
+ 
+look(EAST);wait(3t);look(-20,-10);wait(507ms);key(use);wait(%#lag%);slotclick(4,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(5,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(6,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(EAST);look(-0,-10);wait(507ms);key(use);wait(%#lag%);slotclick(7,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(8,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(9,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(EAST);look(+20,-10);wait(507ms);key(use);wait(%#lag%);slotclick(10,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(11,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(12,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(EAST);look(-20,+20);wait(507ms);key(use);wait(%#lag%);slotclick(13,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(14,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(15,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(EAST);look(-0,+20);wait(507ms);key(use);wait(%#lag%);slotclick(16,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(17,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(18,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(EAST);look(+20,+20);wait(507ms);key(use);wait(%#lag%);slotclick(19,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(20,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(21,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(EAST);look(-20,+40);wait(507ms);key(use);wait(%#lag%);slotclick(31,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(32,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(33,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(EAST);look(-0,+40);wait(507ms);key(use);wait(%#lag%);slotclick(34,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(35,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(36,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(EAST);look(+20,+40);wait(507ms);key(use);wait(%#lag%);slotclick(37,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(38,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(39,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+ 
+ 
+look(EAST);wait(3t);look(-20,-10);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(EAST);look(-0,-10);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(EAST);look(+20,-10);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(EAST);look(-20,+20);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(EAST);look(-0,+20);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(EAST);look(+20,+20);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(EAST);look(-20,+40);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(EAST);look(-0,+40);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(EAST);look(+20,+40);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+endif;  
+  
+  }$$ $${if(%#tipo%=1);}$$/home fabricadepot$${wait(%#lag2%);
+look(WEST);wait(3t);look(-20,-10);wait(507ms);key(use);wait(%#lag%);slotclick(13,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(14,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(15,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(WEST);look(-0,-10);wait(507ms);key(use);wait(%#lag%);slotclick(16,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(17,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(18,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(WEST);look(+20,-10);wait(507ms);key(use);wait(%#lag%);slotclick(19,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(20,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(21,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(WEST);look(-20,+20);wait(507ms);key(use);wait(%#lag%);slotclick(22,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(23,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(24,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(WEST);look(-0,+20);wait(507ms);key(use);wait(%#lag%);slotclick(25,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(26,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(27,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(WEST);look(+20,+20);wait(507ms);key(use);wait(%#lag%);slotclick(28,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(29,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(30,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(WEST);look(-20,+40);wait(507ms);key(use);wait(%#lag%);slotclick(31,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(32,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(33,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(WEST);look(-0,+40);wait(507ms);key(use);wait(%#lag%);slotclick(34,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(35,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(36,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(WEST);look(+20,+40);wait(507ms);key(use);wait(%#lag%);slotclick(37,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(38,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(39,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+ 
+ 
+look(WEST);wait(3t);look(-20,-10);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(WEST);look(-0,-10);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(WEST);look(+20,-10);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(WEST);look(-20,+20);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(WEST);look(-0,+20);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(WEST);look(+20,+20);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(WEST);look(-20,+40);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(WEST);look(-0,+40);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(WEST);look(+20,+40);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+endif;
+
+  }$$ $${if(%#tipo%=2);}$$/home fabricadepot2$${wait(%#lag2%);
+look(EAST);wait(3t);look(-20,-10);wait(507ms);key(use);wait(%#lag%);slotclick(13,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(14,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(15,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(EAST);look(-0,-10);wait(507ms);key(use);wait(%#lag%);slotclick(16,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(17,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(18,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(EAST);look(+20,-10);wait(507ms);key(use);wait(%#lag%);slotclick(19,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(20,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(21,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(EAST);look(-20,+20);wait(507ms);key(use);wait(%#lag%);slotclick(22,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(23,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(24,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(EAST);look(-0,+20);wait(507ms);key(use);wait(%#lag%);slotclick(25,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(26,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(27,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(EAST);look(+20,+20);wait(507ms);key(use);wait(%#lag%);slotclick(28,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(29,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(30,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(EAST);look(-20,+40);wait(507ms);key(use);wait(%#lag%);slotclick(31,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(32,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(33,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(EAST);look(-0,+40);wait(507ms);key(use);wait(%#lag%);slotclick(34,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(35,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(36,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(EAST);look(+20,+40);wait(507ms);key(use);wait(%#lag%);slotclick(37,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(38,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(39,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+ 
+ 
+look(EAST);wait(3t);look(-20,-10);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(EAST);look(-0,-10);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(EAST);look(+20,-10);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(EAST);look(-20,+20);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(EAST);look(-0,+20);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(EAST);look(+20,+20);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(EAST);look(-20,+40);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(EAST);look(-0,+40);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(EAST);look(+20,+40);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+endif;  
+  
+  }$$ $${if(%#tipo%=3);}$$/home fabricadepot2$${wait(%#lag2%);
+look(NORTH);wait(3t);look(-20,-10);wait(507ms);key(use);wait(%#lag%);slotclick(13,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(14,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(15,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(NORTH);look(-0,-10);wait(507ms);key(use);wait(%#lag%);slotclick(16,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(17,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(18,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(NORTH);look(+20,-10);wait(507ms);key(use);wait(%#lag%);slotclick(19,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(20,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(21,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(NORTH);look(-20,+20);wait(507ms);key(use);wait(%#lag%);slotclick(22,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(23,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(24,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(NORTH);look(-0,+20);wait(507ms);key(use);wait(%#lag%);slotclick(25,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(26,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(27,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(NORTH);look(+20,+20);wait(507ms);key(use);wait(%#lag%);slotclick(28,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(29,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(30,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(NORTH);look(-20,+40);wait(507ms);key(use);wait(%#lag%);slotclick(31,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(32,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(33,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(NORTH);look(-0,+40);wait(507ms);key(use);wait(%#lag%);slotclick(34,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(35,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(36,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(NORTH);look(+20,+40);wait(507ms);key(use);wait(%#lag%);slotclick(37,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(38,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(39,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+ 
+ 
+look(NORTH);wait(3t);look(-20,-10);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(NORTH);look(-0,-10);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(NORTH);look(+20,-10);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(NORTH);look(-20,+20);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(NORTH);look(-0,+20);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(NORTH);look(+20,+20);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(NORTH);look(-20,+40);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(NORTH);look(-0,+40);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(NORTH);look(+20,+40);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+endif;  
+  
+  }$$ $${if(%#tipo%=4);}$$/home fabricadepot2$${wait(%#lag2%);
+look(WEST);wait(3t);look(-20,-10);wait(507ms);key(use);wait(%#lag%);slotclick(13,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(14,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(15,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(WEST);look(-0,-10);wait(507ms);key(use);wait(%#lag%);slotclick(16,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(17,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(18,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(WEST);look(+20,-10);wait(507ms);key(use);wait(%#lag%);slotclick(19,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(20,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(21,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(WEST);look(-20,+20);wait(507ms);key(use);wait(%#lag%);slotclick(22,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(23,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(24,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(WEST);look(-0,+20);wait(507ms);key(use);wait(%#lag%);slotclick(25,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(26,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(27,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(WEST);look(+20,+20);wait(507ms);key(use);wait(%#lag%);slotclick(28,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(29,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(30,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(WEST);look(-20,+40);wait(507ms);key(use);wait(%#lag%);slotclick(31,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(32,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(33,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(WEST);look(-0,+40);wait(507ms);key(use);wait(%#lag%);slotclick(34,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(35,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(36,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(WEST);look(+20,+40);wait(507ms);key(use);wait(%#lag%);slotclick(37,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(38,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(39,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+ 
+ 
+look(WEST);wait(3t);look(-20,-10);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(WEST);look(-0,-10);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(WEST);look(+20,-10);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(WEST);look(-20,+20);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(WEST);look(-0,+20);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(WEST);look(+20,+20);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(WEST);look(-20,+40);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(WEST);look(-0,+40);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(WEST);look(+20,+40);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+endif;  
+  
+  }$$ $${if(%#tipo%=5);}$$/home fabricadepot2$${wait(%#lag2%);
+look(SOUTH);wait(3t);look(-20,-10);wait(507ms);key(use);wait(%#lag%);slotclick(13,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(14,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(15,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(SOUTH);look(-0,-10);wait(507ms);key(use);wait(%#lag%);slotclick(16,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(17,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(18,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(SOUTH);look(+20,-10);wait(507ms);key(use);wait(%#lag%);slotclick(19,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(20,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(21,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(SOUTH);look(-20,+20);wait(507ms);key(use);wait(%#lag%);slotclick(22,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(23,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(24,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(SOUTH);look(-0,+20);wait(507ms);key(use);wait(%#lag%);slotclick(25,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(26,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(27,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(SOUTH);look(+20,+20);wait(507ms);key(use);wait(%#lag%);slotclick(28,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(29,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(30,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(SOUTH);look(-20,+40);wait(507ms);key(use);wait(%#lag%);slotclick(31,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(32,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(33,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(SOUTH);look(-0,+40);wait(507ms);key(use);wait(%#lag%);slotclick(34,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(35,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(36,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(SOUTH);look(+20,+40);wait(507ms);key(use);wait(%#lag%);slotclick(37,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(38,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(39,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+ 
+ 
+look(SOUTH);wait(3t);look(-20,-10);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(SOUTH);look(-0,-10);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(SOUTH);look(+20,-10);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(SOUTH);look(-20,+20);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(SOUTH);look(-0,+20);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(SOUTH);look(+20,+20);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(SOUTH);look(-20,+40);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(SOUTH);look(-0,+40);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(SOUTH);look(+20,+40);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+endif;  
+
+
+}$$ $${if(%#tipo2%=1);}$$/home fabricadepot$${wait(%#lag2%);
+look(NORTH);wait(3t);look(-20,-10);wait(507ms);key(use);wait(%#lag%);slotclick(13,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(14,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(15,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(NORTH);look(-0,-10);wait(507ms);key(use);wait(%#lag%);slotclick(16,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(17,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(18,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(NORTH);look(+20,-10);wait(507ms);key(use);wait(%#lag%);slotclick(19,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(20,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(21,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(NORTH);look(-20,+20);wait(507ms);key(use);wait(%#lag%);slotclick(22,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(23,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(24,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(NORTH);look(-0,+20);wait(507ms);key(use);wait(%#lag%);slotclick(25,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(26,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(27,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(NORTH);look(+20,+20);wait(507ms);key(use);wait(%#lag%);slotclick(28,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(29,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(30,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(NORTH);look(-20,+40);wait(507ms);key(use);wait(%#lag%);slotclick(31,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(32,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(33,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(NORTH);look(-0,+40);wait(507ms);key(use);wait(%#lag%);slotclick(34,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(35,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(36,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(NORTH);look(+20,+40);wait(507ms);key(use);wait(%#lag%);slotclick(37,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(38,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(39,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+ 
+ 
+look(NORTH);wait(3t);look(-20,-10);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(NORTH);look(-0,-10);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(NORTH);look(+20,-10);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(NORTH);look(-20,+20);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(NORTH);look(-0,+20);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(NORTH);look(+20,+20);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(NORTH);look(-20,+40);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(NORTH);look(-0,+40);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(NORTH);look(+20,+40);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+endif;
+
+
+}$$ $${if(%#tipo2%=2);}$$/home fabricadepot$${wait(%#lag2%);
+look(SOUTH);wait(3t);look(-20,-10);wait(507ms);key(use);wait(%#lag%);slotclick(13,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(14,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(15,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(SOUTH);look(-0,-10);wait(507ms);key(use);wait(%#lag%);slotclick(16,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(17,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(18,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(SOUTH);look(+20,-10);wait(507ms);key(use);wait(%#lag%);slotclick(19,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(20,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(21,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(SOUTH);look(-20,+20);wait(507ms);key(use);wait(%#lag%);slotclick(22,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(23,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(24,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(SOUTH);look(-0,+20);wait(507ms);key(use);wait(%#lag%);slotclick(25,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(26,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(27,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(SOUTH);look(+20,+20);wait(507ms);key(use);wait(%#lag%);slotclick(28,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(29,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(30,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(SOUTH);look(-20,+40);wait(507ms);key(use);wait(%#lag%);slotclick(31,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(32,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(33,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(SOUTH);look(-0,+40);wait(507ms);key(use);wait(%#lag%);slotclick(34,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(35,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(36,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(SOUTH);look(+20,+40);wait(507ms);key(use);wait(%#lag%);slotclick(37,l);wait(%#lag3%ms);slotclick(0,l);wait(%#lag3%ms);slotclick(38,l);wait(%#lag3%ms);slotclick(1,l);wait(%#lag3%ms);slotclick(39,l);wait(%#lag3%ms);slotclick(2,l);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+ 
+ 
+look(SOUTH);wait(3t);look(-20,-10);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(SOUTH);look(-0,-10);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(SOUTH);look(+20,-10);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(SOUTH);look(-20,+20);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(SOUTH);look(-0,+20);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(SOUTH);look(+20,+20);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(SOUTH);look(-20,+40);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(SOUTH);look(-0,+40);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+ 
+look(SOUTH);look(+20,+40);wait(507ms);key(use);wait(%#lag%);slotclick(0,l,true);wait(%#lag3%ms);slotclick(1,l,true);wait(%#lag3%ms);slotclick(2,l,true);wait(%#lag3%ms);gui();wait(%#lag4%ms);
+endif;
+do;
+wait(1000ms);
+}$$
+
+$${if(%#bau%=1);}$$/home trapbau$${wait(%#lag2%);look(SOUTH);wait(2t);look(-20,-20);wait(1);endif;}$$
+$${if(%#bau%=2);}$$/home trapbau$${wait(%#lag2%);look(SOUTH);wait(2t);look(-20,-0);wait(1);endif;}$$
+$${if(%#bau%=3);}$$/home trapbau$${wait(%#lag2%);look(SOUTH);wait(2t);look(-20,+20);wait(1);endif;}$$
+$${if(%#bau%=4);}$$/home trapbau$${wait(%#lag2%);look(SOUTH);wait(2t);look(-0,-20);wait(1);endif;}$$
+$${if(%#bau%=5);}$$/home trapbau$${wait(%#lag2%);look(SOUTH);wait(2t);look(-20,-20);wait(2t);look(+20,+20);wait(1);endif;}$$
+$${if(%#bau%=6);}$$/home trapbau$${wait(%#lag2%);look(SOUTH);wait(2t);look(-0,+20);wait(1);endif;}$$
+$${if(%#bau%=7);}$$/home trapbau$${wait(%#lag2%);look(SOUTH);wait(2t);look(+20,-20);wait(1);endif;}$$
+$${if(%#bau%=8);}$$/home trapbau$${wait(%#lag2%);look(SOUTH);wait(2t);look(+20,-0);wait(1);endif;}$$
+$${if(%#bau%=9);}$$/home trapbau$${wait(%#lag2%);look(SOUTH);wait(2t);look(+20,+20);wait(1);endif;}$$
+$${if(%#bau%=10);}$$/home trapbau$${wait(%#lag2%);look(SOUTH);wait(2t);look(+35,-15);wait(1);endif;}$$
+$${if(%#bau%=11);}$$/home trapbau$${wait(%#lag2%);look(SOUTH);wait(2t);look(+35,-0);wait(1);endif;}$$
+$${if(%#bau%=12);}$$/home trapbau$${wait(%#lag2%);look(SOUTH);wait(2t);look(+35,+20);wait(1);endif;}$$
+$${if(%#bau%=13);}$$/home trapbau$${wait(%#lag2%);look(WEST);wait(2t);look(-35,-15);wait(1);endif;}$$
+$${if(%#bau%=14);}$$/home trapbau$${wait(%#lag2%);look(WEST);wait(2t);look(-35,-0);wait(1);endif;}$$
+$${if(%#bau%=15);}$$/home trapbau$${wait(%#lag2%);look(WEST);wait(2t);look(-35,+20);wait(1);endif;}$$
+$${if(%#bau%=16);}$$/home trapbau$${wait(%#lag2%);look(WEST);wait(2t);look(-20,-20);wait(1);endif;}$$
+$${if(%#bau%=17);}$$/home trapbau$${wait(%#lag2%);look(WEST);wait(2t);look(-20,-0);wait(1);endif;}$$
+$${if(%#bau%=18);}$$/home trapbau$${wait(%#lag2%);look(WEST);wait(2t);look(-20,+20);wait(1);endif;}$$
+$${if(%#bau%=19);}$$/home trapbau$${wait(%#lag2%);look(WEST);wait(2t);look(-0,-20);wait(1);endif;}$$
+$${if(%#bau%=20);}$$/home trapbau$${wait(%#lag2%);look(WEST);wait(2t);look(-20,-20);wait(2t);look(+20,+20);wait(1);endif;}$$
+$${if(%#bau%=21);}$$/home trapbau$${wait(%#lag2%);look(WEST);wait(2t);look(-0,+20);wait(1);endif;}$$
+$${if(%#bau%=22);}$$/home trapbau$${wait(%#lag2%);look(WEST);wait(2t);look(+20,+20);wait(1);endif;}$$
+$${if(%#bau%=23);}$$/home trapbau$${wait(%#lag2%);look(WEST);wait(2t);look(+20,-0);wait(1);endif;}$$
+$${if(%#bau%=24);}$$/home trapbau$${wait(%#lag2%);look(WEST);wait(2t);look(+20,-20);wait(1);endif;}$$
+$${if(%#bau%=25);}$$/home trapbau$${wait(%#lag2%);look(WEST);wait(2t);look(+35,-15);wait(1);endif;}$$
+$${if(%#bau%=26);}$$/home trapbau$${wait(%#lag2%);look(WEST);wait(2t);look(+35,-0);wait(1);endif;}$$
+$${if(%#bau%=27);}$$/home trapbau$${wait(%#lag2%);look(WEST);wait(2t);look(+35,+20);wait(1);endif;}$$
+$${if(%#bau%=28);}$$/home trapbau$${wait(%#lag2%);look(NORTH);wait(2t);look(-35,-15);wait(1);endif;}$$
+$${if(%#bau%=29);}$$/home trapbau$${wait(%#lag2%);look(NORTH);wait(2t);look(-35,-0);wait(1);endif;}$$
+$${if(%#bau%=30);}$$/home trapbau$${wait(%#lag2%);look(NORTH);wait(2t);look(-35,+20);wait(1);endif;}$$
+$${if(%#bau%=31);}$$/home trapbau$${wait(%#lag2%);look(NORTH);wait(2t);look(-20,-20);wait(1);endif;}$$
+$${if(%#bau%=32);}$$/home trapbau$${wait(%#lag2%);look(NORTH);wait(2t);look(-20,-0);wait(1);endif;}$$
+$${if(%#bau%=33);}$$/home trapbau$${wait(%#lag2%);look(NORTH);wait(2t);look(-20,+20);wait(1);endif;}$$
+$${if(%#bau%=34);}$$/home trapbau$${wait(%#lag2%);look(NORTH);wait(2t);look(-0,-20);wait(1);endif;}$$
+$${if(%#bau%=35);}$$/home trapbau$${wait(%#lag2%);look(NORTH);wait(2t);look(-20,-20);wait(2t);look(+20,+20);wait(1);endif;}$$
+$${if(%#bau%=36);}$$/home trapbau$${wait(%#lag2%);look(NORTH);wait(2t);look(-0,+20);wait(1);endif;}$$
+$${if(%#bau%=37);}$$/home trapbau$${wait(%#lag2%);look(NORTH);wait(2t);look(+20,+20);wait(1);endif;}$$
+$${if(%#bau%=38);}$$/home trapbau$${wait(%#lag2%);look(NORTH);wait(2t);look(+20,-0);wait(1);endif;}$$
+$${if(%#bau%=39);}$$/home trapbau$${wait(%#lag2%);look(NORTH);wait(2t);look(+20,-20);wait(1);endif;}$$
+$${if(%#bau%=40);}$$/home trapbau$${wait(%#lag2%);look(NORTH);wait(2t);look(+35,-15);wait(1);endif;}$$
+$${if(%#bau%=41);}$$/home trapbau$${wait(%#lag2%);look(NORTH);wait(2t);look(+35,-0);wait(1);endif;}$$
+$${if(%#bau%=42);}$$/home trapbau$${wait(%#lag2%);look(NORTH);wait(2t);look(+35,+20);wait(1);endif;}$$
+$${if(%#bau%=43);}$$/home trapbau$${wait(%#lag2%);look(EAST);wait(2t);look(-35,-15);wait(1);endif;}$$
+$${if(%#bau%=44);}$$/home trapbau$${wait(%#lag2%);look(EAST);wait(2t);look(-35,-0);wait(1);endif;}$$
+$${if(%#bau%=45);}$$/home trapbau$${wait(%#lag2%);look(EAST);wait(2t);look(-35,+20);wait(1);endif;}$$
+$${if(%#bau%=46);}$$/home trapbau$${wait(%#lag2%);look(EAST);wait(2t);look(-20,-20);wait(1);endif;}$$
+$${if(%#bau%=47);}$$/home trapbau$${wait(%#lag2%);look(EAST);wait(2t);look(-20,-0);wait(1);endif;}$$
+$${if(%#bau%=48);}$$/home trapbau$${wait(%#lag2%);look(EAST);wait(2t);look(-20,+20);wait(1);endif;}$$
+$${if(%#bau%=49);}$$/home trapbau$${wait(%#lag2%);look(EAST);wait(2t);look(-0,-20);wait(1);endif;}$$
+$${if(%#bau%=50);}$$/home trapbau$${wait(%#lag2%);look(EAST);wait(2t);look(-20,-20);wait(2t);look(+20,+20);wait(1);endif;}$$
+$${if(%#bau%=51);}$$/home trapbau$${wait(%#lag2%);look(EAST);wait(2t);look(-0,+20);wait(1);endif;}$$
+$${if(%#bau%=52);}$$/home trapbau$${wait(%#lag2%);look(EAST);wait(2t);look(+20,+20);wait(1);endif;}$$
+$${if(%#bau%=53);}$$/home trapbau$${wait(%#lag2%);look(EAST);wait(2t);look(+20,-0);wait(1);endif;}$$
+$${if(%#bau%=54);}$$/home trapbau$${wait(%#lag2%);look(EAST);wait(2t);look(+20,-20);wait(1);endif;}$$
+$${if(%#bau%=55);}$$/home trapbau$${wait(%#lag2%);look(EAST);wait(2t);look(+35,-15);wait(1);endif;}$$
+$${if(%#bau%=56);}$$/home trapbau$${wait(%#lag2%);look(EAST);wait(2t);look(+35,-0);wait(1);endif;}$$
+$${if(%#bau%=57);}$$/home trapbau$${wait(%#lag2%);look(EAST);wait(2t);look(+35,+20);wait(1);endif;}$$
+ 
+ 
+$${key(use);wait(%#lag%);for(#i,54,89);slotclick(%#i%,l,true);wait(30ms);next;
+wait(502ms);getslotitem(53,#id,#stack);wait(502ms);if(%#stack%!=0);inc(#bau);endif;
+if(%#bau%=58);log(lotou todos os baus);stop();gui();else;gui();endif;until(%#stack%=0);
+ 
+loop;
+log(Terminado todas as pocoes!);
+toggle(potz);
+endif;
+}$$
