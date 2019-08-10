@@ -1,0 +1,72 @@
+$${IF(auto);LOG("&3[%PLAYER%] &bAuto-Morte &4[OFF]");
+log(&4Feita por &cMortasius);
+SPRINT;
+UNSET(auto);
+STOP();
+ELSE;
+LOG("&3[%PLAYER%] &bAuto-Morte V3.0&2[ON]");
+SPRINT;
+LOG("&3[%PLAYER%] &3Para desligar pressione %KEYNAME%");
+log(&4Feita por &cMortasius);
+SET(auto);
+PROMPT(&delay,$$?,"Delay em ms:");
+DO;
+if(HEALTH<=4);
+DISCONNECT;}$$
+$${
+LOG("&3[%PLAYER%] &bAuto-Morte V3.0&4[OFF]");
+log(&4Feita por &cMortasius);
+UNSET(auto);
+STOP();
+endif;
+else;
+&hit = %HIT%;
+&pl = PLAYER;
+if(&hit = &pl);
+key(attack);
+wait(%&delay%ms);
+endif;
+IF(KEY_F);
+key(use);
+wait(1t);
+ENDIF;
+}$$
+$${
+ifmatches(%GUI%,None);
+if(%#tr%>0);keyup(ForWard);endif;
+dec(#tr,%#tr%);
+if(KEY_W);sprint;else;unsprint;endif;
+ 
+else;
+&dir=%DIRECTION%;
+ 
+ifmatches(%GUI%,Inventory|Chat|Chest|Furnace);
+keydown(FORWARD);SPRINT;
+ifmatches(%DIRECTION%,N);#a=-1;#b=0;&op=SOUTH;endif;ifmatches(%DIRECTION%,S);#a=+1;#b=0;&op=NORTH;endif;
+ifmatches(%DIRECTION%,W);#a=0;#b=-1;&op=EAST;endif;ifmatches(%DIRECTION%,E);#a=0;#b=+1;&op=WEST;endif;
+getidrel(%#b%,1,%#a%,#d,);getidrel(%#b%,0,%#a%,#c,);if((%#c%!=0)|(%#d%!=0));;&dir=%&op%;endif;look(%&dir%);
+ 
+if(KEY_S);
+ifmatches(%DIRECTION%,N);#a=-1;#b=0;&op=SOUTH;endif;ifmatches(%DIRECTION%,S);#a=+1;#b=0;&opNORTH;endif;
+ifmatches(%DIRECTION%,W);#a=0;#b=-1;&op=EAST;endif;ifmatches(%DIRECTION%,E);#a=0;#b=+1;&op=WEST;endif;
+getidrel(%#b%,1,%#a%,#d,);getidrel(%#b%,0,%#a%,#c,);if((%#c%!=0)|(%#d%!=0));&dir=%&op%;endif;look(%&dir%);keydown(back);else;keyup(back);endif;
+ 
+if(KEY_A);
+ifmatches(%DIRECTION%,N);#a=-1;#b=0;&op=SOUTH;endif;ifmatches(%DIRECTION%,S);#a=+1;#b=0;&opNORTH;endif;
+ifmatches(%DIRECTION%,W);#a=0;#b=-1;&op=EAST;endif;ifmatches(%DIRECTION%,E);#a=0;#b=+1;&op=WEST;endif;
+getidrel(%#b%,1,%#a%,#d,);getidrel(%#b%,0,%#a%,#c,);if((%#c%!=0)|(%#d%!=0));&dir=%&op%;endif;look(%&dir%);keydown(left);else;keyup(left);endif;
+ 
+ 
+if(KEY_D);
+ifmatches(%DIRECTION%,N);#a=-1;#b=0;&op=SOUTH;endif;ifmatches(%DIRECTION%,S);#a=+1;#b=0;&opNORTH;endif;
+ifmatches(%DIRECTION%,W);#a=0;#b=-1;&op=EAST;endif;ifmatches(%DIRECTION%,E);#a=0;#b=+1;&op=WEST;endif;
+getidrel(%#b%,1,%#a%,#d,);getidrel(%#b%,0,%#a%,#c,);if((%#c%!=0)|(%#d%!=0));&dir=%&op%;endif;look(%&dir%);keydown(right);else;keyup(right);endif;
+ 
+if(KEY_SPACE);keydown(jump);else;keyup(jump);endif;
+inc(#tr,1);
+endif;
+ 
+endif;
+loop;
+loop;
+}$$
